@@ -95,7 +95,7 @@ impl ColorStyle {
 
     #[must_use = "need to call pop on ColorToken befor going out of scope"]
     #[doc(alias = "PushColorStyle")]
-    pub fn push_color<C: Into<ImColor32>>(self, color: C, _: &EditorContext) -> ColorToken {
+    pub fn push_color<C: Into<ImColor32>>(self, color: C) -> ColorToken {
         let color: ImColor32 = color.into();
         unsafe { sys::imnodes_PushColorStyle(self as i32, color.into()) };
         ColorToken { ended: false }
