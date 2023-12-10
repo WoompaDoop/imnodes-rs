@@ -63,8 +63,22 @@ impl OuterScope {
     #[doc(alias = "NumSelectedNodes")]
     pub fn num_selected_nodes(&self) -> u32 {
         let num = unsafe { sys::imnodes_NumSelectedNodes() };
-        assert!(num > 0);
+        assert!(num >= 0);
         num as u32
+    }
+
+    ///
+    #[doc(alias = "SelectNode")]
+    pub fn select_node(&self, node_id: NodeId) {
+        unsafe { sys::imnodes_SelectNode(node_id.into()) }
+    }
+
+    ///
+    #[doc(alias = "ClearNodeSelection_Nil")]
+    pub fn clear_node_selection(&self) {
+        unsafe {
+            sys::imnodes_ClearNodeSelection_Nil();
+        }
     }
 
     /// Query the number of selected links in the current editor.
@@ -73,7 +87,7 @@ impl OuterScope {
     #[doc(alias = "NumSelectedLinks")]
     pub fn num_selected_links(&self) -> u32 {
         let num = unsafe { sys::imnodes_NumSelectedLinks() };
-        assert!(num > 0);
+        assert!(num >= 0);
         num as u32
     }
 
